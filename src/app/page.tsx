@@ -1,4 +1,5 @@
-import { getProducts } from "../lib/api.ts";
+import { getProducts } from "@/lib/api";
+import ProductCard from "@/components/ProductCard";
 
 export default async function Home() {
   const response = await getProducts();
@@ -6,33 +7,17 @@ export default async function Home() {
   const products = response.data;
 
   return (
-    <main>
-      <h1>Blend shop</h1>
+    <main className="min-h-screen bg-gray-50 px-6 py-10">
+      <h1 className="mb-8 text-center text-4xl font-bold text-gray-900">
+        Blend Shop
+      </h1>
 
-      <div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {products.map((product) => (
-          <div key={product.id}>
-            <img
-              src={product.image.url}
-              alt={product.image.alt}
-            />
-
-            <h2>{product.title}</h2>
-
-            <p>{product.description}</p>
-
-            <p>Rating: {product.rating}/5</p>
-
-            <p>
-              Price: ${product.price}
-            </p>
-
-            {product.discountedPrice < product.price && (
-              <p>
-                Discount price: ${product.discountedPrice}
-              </p>
-            )}
-          </div>
+          <ProductCard
+            key={product.id}
+            product={product}
+          />
         ))}
       </div>
     </main>

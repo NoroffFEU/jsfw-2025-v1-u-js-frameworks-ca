@@ -1,4 +1,4 @@
-import { ProductResponse, ProductsResponse } from "../types/product";
+import { ProductResponse, ProductsResponse } from "@/types/product";
 
 const API_BASE_URL = "https://v2.api.noroff.dev";
 
