@@ -1,4 +1,6 @@
-import { Product } from "@/types/product.ts";
+import Image from "next/image";
+import Link from "next/link";
+import { Product } from "@/types/product";
 
 type ProductCardProps = {
   product: Product;
@@ -15,6 +17,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       : 0;
 
   return (
+  <Link href={`/products/${product.id}`}>
     <article className="group overflow-hidden rounded-2xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl">
       <div className="relative">
         {discount > 0 && (
@@ -23,11 +26,13 @@ export default function ProductCard({ product }: ProductCardProps) {
           </span>
         )}
 
-        <img
-          src={product.image.url}
-          alt={product.image.alt}
-          className="h-64 w-full object-cover transition duration-300 group-hover:scale-105"
-        />
+      <Image
+      src={product.image.url}
+      alt={product.image.alt}
+      width={500}
+      height={500}
+      className="h-64 w-full object-cover transition duration-300 group-hover:scale-105"
+    />
       </div>
 
       <div className="space-y-3 p-5">
@@ -56,20 +61,20 @@ export default function ProductCard({ product }: ProductCardProps) {
           {discount > 0 ? (
             <>
               <p className="text-sm text-gray-400 line-through">
-                ${product.price}
+                ${product.price.toFixed(2)}
               </p>
-
               <p className="text-2xl font-bold text-black">
-                ${product.discountedPrice}
+                ${product.discountedPrice.toFixed(2)}
               </p>
             </>
           ) : (
             <p className="text-2xl font-bold text-black">
-              ${product.price}
+              ${product.price.toFixed(2)}
             </p>
           )}
         </div>
       </div>
     </article>
+    </Link>
   );
 }
