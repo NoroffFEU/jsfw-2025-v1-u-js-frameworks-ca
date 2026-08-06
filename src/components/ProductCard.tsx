@@ -17,7 +17,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       : 0;
 
   return (
-  <Link href={`/products/${product.id}`}>
+  <Link href={`/products/${product.id}`} scroll={true}>
     <article className="group overflow-hidden rounded-2xl bg-white shadow-md transition hover:-translate-y-1 hover:shadow-xl">
       <div className="relative">
         {discount > 0 && (
