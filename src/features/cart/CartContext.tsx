@@ -11,7 +11,9 @@ type CartContextType = {
   cart: CartItem[];
   addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
+  decreaseQuantity: (productId: string) => void;
   cartCount: number;
+  cartTotal: number;
 };
 
 const CartContext = createContext<CartContextType | undefined>(
@@ -49,6 +51,11 @@ export function CartProvider({
     });
   }
 
+function decreaseQuantity(productId: string) { 
+    setCart((currentCart) => 
+        currentCart .map((item) => item.id === productId ? { ...item, quantity: item.quantity - 1 } : item ) .filter((item) => 
+            item.quantity > 0) ); } 
+
   function removeFromCart(productId: string) {
     setCart((currentCart) =>
       currentCart.filter((item) => item.id !== productId)
@@ -60,13 +67,21 @@ export function CartProvider({
     0
   );
 
+  const cartTotal = cart.reduce(
+  (total, item) =>
+    total + item.discountedPrice * item.quantity,
+  0
+);
+
   return (
     <CartContext.Provider
       value={{
         cart,
         addToCart,
         removeFromCart,
+        decreaseQuantity,
         cartCount,
+        cartTotal,
       }}
     >
       {children}
