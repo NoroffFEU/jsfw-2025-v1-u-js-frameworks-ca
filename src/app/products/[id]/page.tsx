@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getProduct } from "@/lib/api";
+import AddToCartButton from "@/components/AddToCartButton";
 
 type ProductPageProps = {
   params: Promise<{
@@ -40,9 +41,6 @@ export default async function ProductPage({
 
 
         <div className="grid gap-10 rounded-3xl bg-white p-8 shadow-lg md:grid-cols-2 md:p-12">
-
-
-          {/* Product image */}
           <div className="flex items-center justify-center rounded-3xl bg-gray-100 p-8">
 
             <Image
@@ -55,11 +53,7 @@ export default async function ProductPage({
 
           </div>
 
-
-
-          {/* Product information */}
           <div className="flex flex-col justify-center space-y-6">
-
 
             {discount > 0 && (
               <span className="w-fit rounded-full bg-red-100 px-4 py-2 text-sm font-semibold text-red-700">
@@ -67,19 +61,13 @@ export default async function ProductPage({
               </span>
             )}
 
-
-
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
               {product.title}
             </h1>
 
-
-
             <p className="leading-relaxed text-gray-600">
               {product.description}
             </p>
-
-
 
             <a
               href="#reviews"
@@ -91,9 +79,6 @@ export default async function ProductPage({
               </span>
             </a>
 
-
-
-            {/* Tags */}
             <div className="flex flex-wrap gap-2">
 
               {product.tags.map((tag) => (
@@ -107,9 +92,6 @@ export default async function ProductPage({
 
             </div>
 
-
-
-            {/* Price */}
             <div className="border-t border-gray-200 pt-5">
 
               {discount > 0 ? (
@@ -131,33 +113,11 @@ export default async function ProductPage({
               )}
 
             </div>
-
-
-
-            <button
-              type="button"
-              className="
-              w-fit rounded-full
-              bg-gradient-to-r from-amber-500 to-orange-500
-              px-10 py-4
-              font-semibold text-white
-              shadow-md
-              transition
-              hover:scale-105
-              hover:shadow-xl
-              "
-            >
-              Add to Cart
-            </button>
-
-
+          <AddToCartButton product={product} />
           </div>
 
         </div>
 
-
-
-        {/* Reviews */}
         {product.reviews.length > 0 && (
           <section
             id="reviews"

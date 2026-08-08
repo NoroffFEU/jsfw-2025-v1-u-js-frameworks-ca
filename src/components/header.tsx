@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useCart } from "@/features/cart/CartContext";
 
 export default function Header() {
+const { cartCount } = useCart();
+
   return (
     <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
@@ -34,7 +39,7 @@ export default function Header() {
             href="/cart"
             className="rounded-full bg-black px-5 py-2 text-sm font-medium text-white transition hover:bg-gray-800"
           >
-            Cart (0)
+            Cart ({cartCount})
           </Link>
         </nav>
 
