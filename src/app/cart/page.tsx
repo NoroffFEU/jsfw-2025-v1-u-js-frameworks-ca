@@ -2,15 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/features/cart/CartContext";
 
 export default function CartPage() {
+  const router = useRouter();
+
   const {
     cart,
     cartTotal,
     addToCart,
     decreaseQuantity,
     removeFromCart,
+    clearCart,
   } = useCart();
 
   const totalSavings = cart.reduce(
@@ -271,16 +275,17 @@ export default function CartPage() {
                 </div>
               </div>
 
-              <button
-                type="button"
-                className="mt-7 w-full rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-8 py-4 font-semibold text-white shadow-md transition hover:scale-[1.02] hover:shadow-xl"
-              >
-                Proceed to Checkout
-              </button>
-
-              <p className="mt-4 text-center text-xs text-gray-500">
-                Checkout is currently unavailable.
-              </p>
+ 
+            <button
+              type="button"
+              onClick={() => {
+                clearCart();
+                router.push("/checkout/success");
+              }}
+              className="mt-7 w-full rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-8 py-4 text-center font-semibold text-white shadow-md transition hover:scale-[1.02] hover:shadow-xl"
+            >
+              Proceed to Checkout
+            </button>
             </aside>
           </div>
         )}
