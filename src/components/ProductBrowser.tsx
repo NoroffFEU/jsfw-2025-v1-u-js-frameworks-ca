@@ -51,7 +51,6 @@ return (
          >
 Search products </label>
 
-```
         <input
           id="product-search"
           type="search"
