@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import Toast from "@/components/toast";
 
 type FormData = {
   name: string;
@@ -126,13 +127,11 @@ export default function ContactPage() {
 
         <div className="rounded-3xl bg-white p-5 shadow-lg sm:p-6 md:p-8">
           {submitted && (
-            <div
-              role="status"
-              className="mb-6 rounded-2xl bg-green-50 p-4 text-sm font-medium text-green-700"
-            >
-              ✓ Your message has been sent successfully.
-              Thank you for contacting Blend Shop!
-            </div>
+            <Toast
+              title="Message sent"
+              message="Thank you for contacting Blend Shop!"
+              onClose={() => setSubmitted(false)}
+            />
           )}
 
           <form onSubmit={handleSubmit} noValidate>

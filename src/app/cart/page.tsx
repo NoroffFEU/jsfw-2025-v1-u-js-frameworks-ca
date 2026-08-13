@@ -1,12 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/features/cart/CartContext";
+import Toast from "@/components/toast";
 
 export default function CartPage() {
   const router = useRouter();
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const {
     cart,
@@ -191,11 +195,8 @@ export default function CartPage() {
                           <div className="flex items-center rounded-full border border-gray-200 bg-gray-50 p-1">
                             <button
                               type="button"
-                              onClick={() =>
-                                decreaseQuantity(
-                                  item.id
-                                )
-                              }
+                              onClick={() =>decreaseQuantity(item.id)}
+                              disabled={item.quantity === 1}
                               className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-gray-700 transition hover:bg-white hover:shadow-sm"
                               aria-label={`Decrease quantity of ${item.title}`}
                             >
@@ -220,9 +221,11 @@ export default function CartPage() {
 
                           <button
                             type="button"
-                            onClick={() =>
-                              removeFromCart(item.id)
-                            }
+                           onClick={() => {
+                            removeFromCart(item.id);
+                            setToastMessage(`${item.title} removed from your cart.`);
+                            setShowToast(true);
+                            }}
                             className="text-sm font-medium text-gray-500 transition hover:text-red-600"
                           >
                             Remove
@@ -290,6 +293,14 @@ export default function CartPage() {
           </div>
         )}
       </div>
+
+    {showToast && (
+      <Toast
+        title="Removed from cart"
+        message={toastMessage}
+        onClose={() => setShowToast(false)}
+      />
+    )}
     </main>
   );
 }
