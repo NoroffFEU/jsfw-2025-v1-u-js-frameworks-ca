@@ -48,7 +48,7 @@ export default async function ProductPage({
               alt={product.image.alt}
               width={450}
               height={450}
-              className="rounded-2xl object-contain transition duration-300 hover:scale-105"
+              className="h-auto w-full max-w-[450px]rounded-2xl object-contain transition duration-300 hover:scale-105"
             />
 
           </div>

@@ -29,6 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Image
       src={product.image.url}
       alt={product.image.alt}
+      loading="eager"
       width={500}
       height={500}
       className="h-64 w-full object-cover transition duration-300 group-hover:scale-105"
